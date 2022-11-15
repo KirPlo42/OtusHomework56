@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginWindowComponent extends AbsBaseComponent{
+public class LoginWindowComponent extends AbsBaseComponent implements IModal{
     public LoginWindowComponent(WebDriver driver) {
         super(driver);
     }

@@ -14,6 +14,7 @@ import java.util.List;
 public class UserPage extends AbsPageObj{
     public UserPage(WebDriver driver) {
         super(driver);
+        path = System.getProperty("user.page.path");
     }
 
     @FindBy(xpath = "(//div[contains(@data-prefix, 'contact')]//div[contains(@data-selected-option-class, 'lk-cv-block__select-option_selected')])[last()]")
@@ -31,7 +32,7 @@ public class UserPage extends AbsPageObj{
     @FindBy(css = "button[title = 'Сохранить и продолжить']")
     private WebElement saveAndContinueButton;
 
-    @FindBy(xpath = "//div[contains(@data-prefix, 'contact')]//button[text() = 'Удалить']")
+    @FindBy(xpath = "//div[contains(@data-prefix, 'contact')]//*[not(contains(@class, '_ssm'))]/*/button[text() = 'Удалить']")
     private List<WebElement> deleteButtonsList;
 
 
@@ -65,14 +66,13 @@ public class UserPage extends AbsPageObj{
     public void deleteCommunicationMethodsIfExist(){
         if (deleteButtonsList.size()>0) {
             String personalURL = driver.getCurrentUrl();
-            for (int i = 1; i<deleteButtonsList.size();){
-                deleteButtonsList.get(i).click();
-                i=i+2;
+            for (WebElement deleteButton : deleteButtonsList) {
+                deleteButton.click();
             }
             saveAndContinueButton.click();
             driver.get(personalURL);
         }else{
-            log.info("There are delete buttons");
+            log.info("There are not delete buttons");
         }
     }
 

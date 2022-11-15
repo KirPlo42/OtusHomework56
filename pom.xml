@@ -20,6 +20,7 @@
         <base.url>https://otus.ru</base.url>
         <login>henij26062@ekbasia.com</login>
         <password>1234567Qq@</password>
+        <user.page.path>/lk/biography/personal/</user.page.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -70,7 +71,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
-            <scope>OtusTest</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -92,6 +93,7 @@
                         <base.url>${base.url}</base.url>
                         <login>${login}</login>
                         <password>${password}</password>
+                        <user.page.path>${user.page.path}</user.page.path>
                         <OtusTest.project.status>OtusTest</OtusTest.project.status>
                     </systemPropertyVariables>
                 </configuration>
