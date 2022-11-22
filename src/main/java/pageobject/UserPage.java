@@ -36,18 +36,20 @@ public class UserPage extends AbsPageObj{
     private List<WebElement> deleteButtonsList;
 
 
-    public void fillUserMainInfo(FieldsInUserPageData someInput, String someText){
+    public UserPage fillUserMainInfo(FieldsInUserPageData someInput, String someText){
         String cssSelector = String.format("input[name = '%s']", someInput.getSelector());
         driver.findElement(By.cssSelector(cssSelector)).clear();
         driver.findElement(By.cssSelector(cssSelector)).sendKeys(someText);
+        return this;
     }
 
-    public void checkUserMainInfo(FieldsInUserPageData someInput, String textForCheck) {
+    public UserPage checkUserMainInfo(FieldsInUserPageData someInput, String textForCheck) {
         String cssSelector = String.format("input[name = '%s']", someInput.getSelector());
         Assertions.assertEquals(textForCheck,  driver.findElement(By.cssSelector(cssSelector)).getAttribute("value"));
+        return this;
     }
 
-    public void setNRandomCommunicationMethods(int n){
+    public UserPage setNRandomCommunicationMethods(int n){
         selectCommunicationMethod.click();
         communicationMethodsList.get((int) (Math.random()*7 + 1)).click();
         for (int i = 1; i<n; i++){
@@ -55,15 +57,17 @@ public class UserPage extends AbsPageObj{
             selectCommunicationMethod.click();
             communicationMethodsList.get((int) (Math.random()*7 + 1)).click();
         }
+        return this;
     }
 
-    public void fillCommunicationMethods(List<String> contacts){
+    public UserPage fillCommunicationMethods(List<String> contacts){
         for (WebElement input : contactInfoList){
             input.sendKeys(contacts.get((int) (Math.random()*(contacts.size()-1))));
         }
+        return this;
     }
 
-    public void deleteCommunicationMethodsIfExist(){
+    public UserPage deleteCommunicationMethodsIfExist(){
         if (deleteButtonsList.size()>0) {
             String personalURL = driver.getCurrentUrl();
             for (WebElement deleteButton : deleteButtonsList) {
@@ -74,13 +78,15 @@ public class UserPage extends AbsPageObj{
         }else{
             log.info("There are not delete buttons");
         }
+        return this;
     }
 
-    public void saveAndContinue(){
+    public UserPage saveAndContinue(){
         saveAndContinueButton.click();
+        return this;
     }
 
-    public void checkContactData(List<String> contacts){
+    public UserPage checkContactData(List<String> contacts){
         int i = 0;
         for (WebElement input : contactInfoList){
             input.getAttribute("value");
@@ -92,6 +98,7 @@ public class UserPage extends AbsPageObj{
             }
         }
         Assertions.assertEquals(contactInfoList.size(), i);
+        return this;
     }
 
 }

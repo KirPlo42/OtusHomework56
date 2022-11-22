@@ -54,49 +54,46 @@ public class OtusTest {
         List<String> contacts = Arrays.asList("somePhone", "someUrl@gg.ru", "someString");
 
         //Логин на сайт
-        MainMenuComponent mainMenuComponent = new MainMenuComponent(driver);
         UserPage userPage = new UserPage(driver);
         new MainPage(driver).openClassPage();
-        mainMenuComponent.openEnterOrRegisterForm();
-        new LoginWindowComponent(driver).loginAsUser();
-        mainMenuComponent.openUserPage();
+        new LoginWindowComponent(driver)
+                .openEnterOrRegisterForm()
+                .loginAsUser();
+        new MainMenuComponent(driver).openUserPage();
 
         //Заполняем личные данные пользователя
-        userPage.fillUserMainInfo(FieldsInUserPageData.Name, name);
-        userPage.fillUserMainInfo(FieldsInUserPageData.NameLatin, nameLatin);
-        userPage.fillUserMainInfo(FieldsInUserPageData.LastName, lastName);
-        userPage.fillUserMainInfo(FieldsInUserPageData.LastNameLatin, lastNameLatin);
-        userPage.fillUserMainInfo(FieldsInUserPageData.BlogName, blogName);
-        userPage.fillUserMainInfo(FieldsInUserPageData.BirthDate, dateOfBirth);
+        userPage.fillUserMainInfo(FieldsInUserPageData.Name, name)
+                .fillUserMainInfo(FieldsInUserPageData.NameLatin, nameLatin)
+                .fillUserMainInfo(FieldsInUserPageData.LastName, lastName)
+                .fillUserMainInfo(FieldsInUserPageData.LastNameLatin, lastNameLatin)
+                .fillUserMainInfo(FieldsInUserPageData.BlogName, blogName)
+                .fillUserMainInfo(FieldsInUserPageData.BirthDate, dateOfBirth);
 
         //Заполняем данные для связи
-        userPage.deleteCommunicationMethodsIfExist();
-        userPage.setNRandomCommunicationMethods(3);
-        userPage.fillCommunicationMethods(contacts);
-        userPage.saveAndContinue();
+        userPage.deleteCommunicationMethodsIfExist()
+                .setNRandomCommunicationMethods(3)
+                .fillCommunicationMethods(contacts)
+                .saveAndContinue();
 
         close();
 
         //Открываем чистый браузер + логин на сайт
         initDriver();
-        UserPage userPageV2 = new UserPage(driver);
-        MainMenuComponent mainMenuComponentV2 = new MainMenuComponent(driver);
         new MainPage(driver).openClassPage();
-        mainMenuComponentV2.openEnterOrRegisterForm();
-        new LoginWindowComponent(driver).loginAsUser();
-        mainMenuComponentV2.openUserPage();
+        new LoginWindowComponent(driver)
+                .openEnterOrRegisterForm()
+                .loginAsUser();
+        new MainMenuComponent(driver).openUserPage();
 
         //Проверка персональных данных
+        new UserPage(driver).checkUserMainInfo(FieldsInUserPageData.Name, name)
+                .checkUserMainInfo(FieldsInUserPageData.NameLatin, nameLatin)
+                .checkUserMainInfo(FieldsInUserPageData.LastName, lastName)
+                .checkUserMainInfo(FieldsInUserPageData.LastNameLatin, lastNameLatin)
+                .checkUserMainInfo(FieldsInUserPageData.BlogName, blogName)
+                .checkUserMainInfo(FieldsInUserPageData.BirthDate, dateOfBirth)
+                .checkContactData(contacts);
 
-        userPageV2.checkUserMainInfo(FieldsInUserPageData.Name, name);
-        userPageV2.checkUserMainInfo(FieldsInUserPageData.NameLatin, nameLatin);
-        userPageV2.checkUserMainInfo(FieldsInUserPageData.LastName, lastName);
-        userPageV2.checkUserMainInfo(FieldsInUserPageData.LastNameLatin, lastNameLatin);
-        userPageV2.checkUserMainInfo(FieldsInUserPageData.BlogName, blogName);
-        userPageV2.checkUserMainInfo(FieldsInUserPageData.BirthDate, dateOfBirth);
-
-        //Проверка контактных данных
-        userPageV2.checkContactData(contacts);
         log.info("Test complete successful");
     }
 

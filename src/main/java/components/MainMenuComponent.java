@@ -18,10 +18,6 @@ public class MainMenuComponent extends AbsBaseComponent{
     @FindBy(xpath = "(//div[contains(@class, 'header2__right__menu__item')])[1]")
     private WebElement userRightMenu;
 
-    public void openEnterOrRegisterForm(){
-        enterOrRegistrationButton.click();
-    }
-
     public void openUserPage(){
         actions.moveToElement(userRightMenu).build().perform();
         userPageButton.click();

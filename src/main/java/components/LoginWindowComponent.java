@@ -19,9 +19,12 @@ public class LoginWindowComponent extends AbsBaseComponent implements IModal{
     @FindBy(xpath = "//input[contains(@class, 'new-input_password')]")
     private WebElement passwordInput;
 
+    @FindBy(className = "header2__auth")
+    private WebElement enterOrRegistrationButton;
+
     private String modalWindowForLoginXPath = "//div[contains(@class, 'modal-container')][1]";
 
-    public void loginAsUser(){
+    public LoginWindowComponent loginAsUser(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         modalShouldBeVisible();
         wait.until(ExpectedConditions.visibilityOf(emailInput));
@@ -29,18 +32,25 @@ public class LoginWindowComponent extends AbsBaseComponent implements IModal{
         passwordInput.sendKeys(System.getProperty("password"));
         passwordInput.submit();
         modalShouldNotBeVisible();
+        return this;
     }
 
-    public void modalShouldBeVisible(){
+    public LoginWindowComponent modalShouldBeVisible(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         Assertions.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(modalWindowForLoginXPath))).isDisplayed()
                 , "Login modal window doesn't displayed");
+        return this;
     }
 
     public void modalShouldNotBeVisible(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         Assertions.assertTrue(wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(modalWindowForLoginXPath)))
         , "Login modal window still open");
+    }
+
+    public LoginWindowComponent openEnterOrRegisterForm(){
+        enterOrRegistrationButton.click();
+        return this;
     }
 
 }

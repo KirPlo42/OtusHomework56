@@ -1,6 +1,6 @@
 package components;
 
 public interface IModal {
-    public void modalShouldBeVisible();
+    public LoginWindowComponent modalShouldBeVisible();
     public void modalShouldNotBeVisible();
 }
